@@ -7,7 +7,9 @@ type Store struct {
 }
 
 func New() *Store {
-	return &Store{}
+	return &Store{
+		db: map[string]string{},
+	}
 }
 
 func (s *Store) Set(key, value string) bool {
@@ -26,13 +28,13 @@ func (s *Store) Get(key string) (string, error) {
 	return val, nil
 }
 
-func (s *Store) Delete(key string) (bool, error) {
+func (s *Store) Delete(key string) error {
 	_, ok := s.db[key]
 
 	if !ok {
-		return false, errors.New("key doesn't exist")
+		return errors.New("key doesn't exist")
 	}
 
 	delete(s.db, key)
-	return true, nil
+	return nil
 }

@@ -11,7 +11,7 @@ import (
 )
 
 type Redis struct {
-	s *store.Store
+	store *store.Store
 }
 
 var validCommands = []string{
@@ -22,33 +22,37 @@ var validCommands = []string{
 
 func NewClient() *Redis {
 	return &Redis{
-		s: store.New(),
+		store: store.New(),
 	}
 }
 
 func (r *Redis) Run() {
 
 	for {
-		commands := getInput()
+		commands := getCommands()
 
-		if strings.ToLower(commands[0]) == "exit" {
+		if commands[0] == "exit" {
 			fmt.Println("Redis client exited successfully!")
 			return
 		}
 
+		valid := false
 		for _, val := range validCommands {
 			if val == commands[0] {
-				exec(commands)
+				r.exec(commands)
+				valid = true
 				break
 			}
 		}
 
-		fmt.Println("Invalid command!")
+		if !valid {
+			fmt.Println("Invalid command!")
+		}
 
 	}
 }
 
-func getInput() []string {
+func getCommands() []string {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("#redis> ")
 
@@ -59,7 +63,7 @@ func getInput() []string {
 
 	cmd := strings.TrimSpace(strings.Replace(res, "\r\n", "", -1))
 
-	actions := strings.Split(cmd, " ")
+	actions := strings.Split(strings.ToLower(cmd), " ")
 
 	return actions
 }
