@@ -31,6 +31,10 @@ func (r *Redis) Run() {
 	for {
 		commands := getCommands()
 
+		if commands[0] == "" {
+			continue
+		}
+
 		if commands[0] == "exit" {
 			fmt.Println("Redis client exited successfully!")
 			return
