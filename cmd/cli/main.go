@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"github.com/FourLineCode/redis-go/pkg/redis"
+)
 
 func main() {
-	fmt.Println("Hello cli")
+	r := redis.NewClient()
+
+	r.Run()
 }
