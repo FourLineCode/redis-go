@@ -18,6 +18,10 @@ var validCommands = []string{
 	"get",
 	"set",
 	"del",
+	"hget",
+	"hset",
+	"hgetall",
+	"hdel",
 }
 
 func NewClient() *Redis {
