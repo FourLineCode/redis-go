@@ -85,3 +85,8 @@ make run
 
     -   Usage: `LDEL {key}`
     -   Description: deletes the entry for the given list key.
+
+-   **EXIT**
+
+    -   Usage: `EXIT`
+    -   Description: exits the program.
