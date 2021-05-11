@@ -14,16 +14,6 @@ type Redis struct {
 	store *store.Store
 }
 
-var validCommands = []string{
-	"get",
-	"set",
-	"del",
-	"hget",
-	"hset",
-	"hgetall",
-	"hdel",
-}
-
 func NewClient() *Redis {
 	return &Redis{
 		store: store.New(),
@@ -34,6 +24,7 @@ func (r *Redis) Run() {
 
 	for {
 		commands := getCommands()
+		validCommands := getAvailableCommands()
 
 		if commands[0] == "" {
 			continue
@@ -54,7 +45,7 @@ func (r *Redis) Run() {
 		}
 
 		if !valid {
-			fmt.Println("Invalid command!")
+			fmt.Println("Error: Invalid command!")
 		}
 
 	}
