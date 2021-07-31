@@ -6,7 +6,7 @@ learning new language features.
 
 # Run CLI
 
-Clone the project and run the following command
+Clone the project and run the following commands
 
 ```
 make run
